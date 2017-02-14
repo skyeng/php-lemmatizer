@@ -97,4 +97,22 @@ class Lemmatizer {
   private function getPos($partOfSpeech) {
     return self::$partsOfSpeech[$partOfSpeech];
   }
+
+  /**
+   * @param      $word
+   * @param null $partOfSpeech
+   *
+   * @return string[]
+   */
+  public function getOnlyLemmas($word, $partOfSpeech = null) {
+    $lemmas = $this->getLemmas($word, $partOfSpeech);
+    $result = [];
+    foreach ($lemmas as $lemma) {
+      if (!in_array($lemma->getLemma(), $result)) {
+        $result[] = $lemma->getLemma();
+      }
+    }
+
+    return $result;
+  }
 }
