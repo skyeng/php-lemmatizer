@@ -47,6 +47,11 @@ $lemmas = $lemmatizer->getLemmas('leaves', Lemma::POS_NOUN); // => [ new Lemma('
 
 // retrieve a lemma without a part of speech.
 $lemmas = $lemmatizer->getLemmas('sitting'); // => [ new Lemma('sit', Lemma::POS_VERB), new Lemma('sitting', Lemma::POS_ADJECTIVE) ]
+
+// retrieve only lemmas not including part of speeches in the returned value.
+$lemmas = $lemmatizer->getOnlyLemmas('desks', Lemma::POS_NOUN); // => [ 'desk' ]
+$lemmas = $lemmatizer->getOnlyLemmas('coded', Lemma::POS_VERB); // => [ 'code' ]
+$lemmas = $lemmatizer->getOnlyLemmas('leaves'); // => [ 'leave', 'leaf' ]
 ```
 
 ## Limitations
