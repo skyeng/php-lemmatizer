@@ -1,0 +1,24 @@
+{
+  "name": "skyeng/php-lemmatizer",
+  "type": "library",
+  "description": "PHP Lemmatizer is a lemmatization library to retrieve a base form from an English inflected word.",
+  "keywords": [
+    "php",
+    "lemmatizer",
+    "lemmatization",
+    "english",
+    "word"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Skyeng\\": "src"
+    }
+  },
+  "license": "MIT",
+  "require": {
+    "php": "^5.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7"
+  }
+}
