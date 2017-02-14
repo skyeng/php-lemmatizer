@@ -1,5 +1,4 @@
 # php-lemmatizer
-====
 
 PHP Lemmatizer is a lemmatization library for PHP to retrieve a base form from an inflected form word in English.
 
@@ -16,7 +15,7 @@ $ composer require skyeng/php-lemmatizer
 ```json
 {
     "require": {
-        "skyeng/php-lemmatizer": "~1.0"
+        "skyeng/php-lemmatizer": "^1.0"
     }
 }
 ```
