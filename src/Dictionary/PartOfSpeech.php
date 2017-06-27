@@ -31,9 +31,9 @@ abstract class PartOfSpeech {
   /**
    * @return array
    */
-  public function getData() {
-    if (!$this->data) {
-      $this->data = $this->doGetData();
+  public function getWordsList() {
+    if(!$this->data) {
+      $this->data = $this->loadWordsList();
     }
 
     return $this->data;
@@ -42,9 +42,9 @@ abstract class PartOfSpeech {
   /**
    * @return array
    */
-  public function getExceptions() {
-    if (!$this->exceptions) {
-      $this->exceptions = $this->doGetExceptionsData();
+  public function getWordsExceptions() {
+    if(!$this->exceptions) {
+      $this->exceptions = $this->loadWordsExceptions();
     }
 
     return $this->exceptions;
@@ -56,8 +56,8 @@ abstract class PartOfSpeech {
    * @return null|Lemma
    */
   public function getIrregularBase(Word $word) {
-    if ($base = $this->findIrregularBaseBehavior->getIrregularBase($word, $this->getExceptions())) {
-      return new Lemma($base, $this->getPartOfSpeech());
+    if($base = $this->findIrregularBaseBehavior->getIrregularBase($word)) {
+      return new Lemma($base, $this->getPartOfSpeechAsString());
     }
 
     return null;
@@ -70,26 +70,30 @@ abstract class PartOfSpeech {
    */
   public function getRegularBases(Word $word) {
     $lemmas = [];
-    $bases  = $this->findRegularBaseBehavior->getRegularBases($word);
-    foreach ($bases as $base) {
-      $lemmas[] = new Lemma($base, $this->getPartOfSpeech());
+    $bases = $this->findRegularBaseBehavior->getRegularBases($word);
+    foreach($bases as $base) {
+      $lemmas[] = new Lemma($base, $this->getPartOfSpeechAsString());
     }
 
     return $lemmas;
   }
 
   /**
+   * Load words list from configuration file.
+   *
    * @return array
    */
-  abstract protected function doGetData();
+  abstract protected function loadWordsList();
 
   /**
+   * Load word exceptions from configuration file.
+   *
    * @return array
    */
-  abstract protected function doGetExceptionsData();
+  abstract protected function loadWordsExceptions();
 
   /**
    * @return string
    */
-  abstract public function getPartOfSpeech();
+  abstract public function getPartOfSpeechAsString();
 }

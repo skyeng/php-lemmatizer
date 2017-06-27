@@ -16,7 +16,7 @@ class Lemmatizer {
   private static $partsOfSpeech;
 
   public function __construct() {
-    if (!self::$partsOfSpeech) {
+    if(!self::$partsOfSpeech) {
       self::$partsOfSpeech = [
         Lemma::POS_VERB => new Verb(),
         Lemma::POS_NOUN => new Noun(),
@@ -31,42 +31,41 @@ class Lemmatizer {
   /**
    * Lemmatize a word
    *
-   * @param string      $word
+   * @param string $word
    * @param string|null $partOfSpeech
    *
    * @return Lemma[]
    */
   public function getLemmas($word, $partOfSpeech = null) {
-    if ($partOfSpeech !== null && !isset(self::$partsOfSpeech[$partOfSpeech])) {
+    if($partOfSpeech !== null && !isset(self::$partsOfSpeech[$partOfSpeech])) {
       $posAsString = implode(' or ', array_keys(self::$partsOfSpeech));
       throw new InvalidArgumentException("partsOfSpeech must be {$posAsString}.");
     }
 
     $wordEntity = new Word($word);
-    if ($partOfSpeech !== null) {
-      $pos    = $this->getPos($partOfSpeech);
+    if($partOfSpeech !== null) {
+      $pos = $this->getPos($partOfSpeech);
       $lemmas = $this->getBaseForm($wordEntity, $pos);
-      if (!$lemmas) {
+      if(!$lemmas) {
         $lemmas[] = new Lemma($word, $partOfSpeech);
       }
     } else {
       $lemmas = [];
       /** @var PartOfSpeech $pos */
-      foreach (self::$partsOfSpeech as $pos) {
+      foreach(self::$partsOfSpeech as $pos) {
         $lemmas = array_merge($lemmas, $this->getBaseForm($wordEntity, $pos));
       }
 
-      if (!$lemmas) {
+      if(!$lemmas) {
         /** @var PartOfSpeech $pos */
-        foreach (self::$partsOfSpeech as $pos) {
-          if (isset($pos->getData()[$word])) {
-            $lemmas[] = new Lemma($word, $pos->getPartOfSpeech());
+        foreach(self::$partsOfSpeech as $pos) {
+          if(isset($pos->getWordsList()[$word])) {
+            $lemmas[] = new Lemma($word, $pos->getPartOfSpeechAsString());
           }
-          $lemmas = array_merge($lemmas, $this->getBaseForm($wordEntity, $pos));
         }
       }
 
-      if (!$lemmas) {
+      if(!$lemmas) {
         $lemmas[] = new Lemma($word);
       }
     }
@@ -75,14 +74,14 @@ class Lemmatizer {
   }
 
   /**
-   * @param Word         $word
+   * @param Word $word
    * @param PartOfSpeech $pos
    *
    * @return Lemma[]
    */
   private function getBaseForm(Word $word, $pos) {
     $lemmas = [];
-    if ($lemma = $pos->getIrregularBase($word)) {
+    if($lemma = $pos->getIrregularBase($word)) {
       $lemmas[] = $lemma;
     }
 
@@ -107,8 +106,8 @@ class Lemmatizer {
   public function getOnlyLemmas($word, $partOfSpeech = null) {
     $lemmas = $this->getLemmas($word, $partOfSpeech);
     $result = [];
-    foreach ($lemmas as $lemma) {
-      if (!in_array($lemma->getLemma(), $result)) {
+    foreach($lemmas as $lemma) {
+      if(!in_array($lemma->getLemma(), $result)) {
         $result[] = $lemma->getLemma();
       }
     }

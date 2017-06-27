@@ -32,6 +32,7 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
    */
   public function withPosProvider() {
     return [
+      [['wives', Lemma::POS_NOUN], [new Lemma('wife', Lemma::POS_NOUN)]],
       [['desks', Lemma::POS_NOUN], [new Lemma('desk', Lemma::POS_NOUN)]],
       [['hired', Lemma::POS_VERB], [new Lemma('hire', Lemma::POS_VERB)]],
       [['worried', Lemma::POS_VERB], [new Lemma('worry', Lemma::POS_VERB)]],
@@ -150,14 +151,15 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withPosProvider
    *
-   * @param array   $wordWithPos
+   * @param array $wordWithPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithPos(array $wordWithPos, array $expectedResult) {
     $lemmas = self::$lemmatizer->getLemmas(...$wordWithPos);
-    $this->assertEquals(count($expectedResult), count($lemmas));
-    foreach ($expectedResult as $expectedLemma) {
-      $this->assertContains($expectedLemma, $lemmas, '', false, false);
+    $message = $this->getMessage($expectedResult, $lemmas);
+    $this->assertEquals(count($expectedResult), count($lemmas), $message);
+    foreach($expectedResult as $expectedLemma) {
+      $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
   }
 
@@ -166,6 +168,7 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
    */
   public function withoutPosProvider() {
     return [
+      [['wives'], [new Lemma('wife', Lemma::POS_NOUN), new Lemma('wive', Lemma::POS_VERB)]],
       [['plays'], [new Lemma('play', Lemma::POS_VERB), new Lemma('play', Lemma::POS_NOUN)]],
       [['oxen'], [new Lemma('oxen', Lemma::POS_NOUN), new Lemma('ox', Lemma::POS_NOUN)]],
       [['fired'], [new Lemma('fire', Lemma::POS_VERB), new Lemma('fired', Lemma::POS_ADJECTIVE)]],
@@ -257,10 +260,12 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
       [['talked'], [new Lemma('talk', Lemma::POS_VERB)]],
       [['saved'], [new Lemma('save', Lemma::POS_VERB), new Lemma('saved', Lemma::POS_ADJECTIVE)]],
       [
-        ['sitting'], [
-        new Lemma('sit', Lemma::POS_VERB), new Lemma('sitting', Lemma::POS_NOUN),
-        new Lemma('sitting', Lemma::POS_ADJECTIVE),
-      ],
+        ['sitting'],
+        [
+          new Lemma('sit', Lemma::POS_VERB),
+          new Lemma('sitting', Lemma::POS_NOUN),
+          new Lemma('sitting', Lemma::POS_ADJECTIVE),
+        ],
       ],
       [['having'], [new Lemma('have', Lemma::POS_VERB)]],
       [['talking'], [new Lemma('talk', Lemma::POS_VERB), new Lemma('talking', Lemma::POS_NOUN)]],
@@ -367,14 +372,40 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withoutPosProvider
    *
-   * @param array   $wordWithoutPos
+   * @param array $wordWithoutPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithoutPos(array $wordWithoutPos, array $expectedResult) {
     $lemmas = self::$lemmatizer->getLemmas(...$wordWithoutPos);
-    $this->assertEquals(count($expectedResult), count($lemmas));
-    foreach ($expectedResult as $expectedLemma) {
-      $this->assertContains($expectedLemma, $lemmas, '', false, false);
+    $message = $this->getMessage($expectedResult, $lemmas);
+    $this->assertEquals(count($expectedResult), count($lemmas), $message);
+    foreach($expectedResult as $expectedLemma) {
+      $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
+  }
+
+  /**
+   * @param Lemma[] $expectedResult
+   * @param Lemma[] $actualResult
+   *
+   * @return string
+   */
+  private function getMessage(array $expectedResult, array $actualResult) {
+    return 'Expected lemmas: ' . implode(', ', $this->getLemmasAsArrayOfStrings($expectedResult)) . "\n"
+      . 'Actual lemmas: ' . implode(', ', $this->getLemmasAsArrayOfStrings($actualResult)) . "\n";
+  }
+
+  /**
+   * @param Lemma[] $lemmas
+   *
+   * @return string[]
+   */
+  private function getLemmasAsArrayOfStrings(array $lemmas) {
+    $result = [];
+    foreach($lemmas as $lemma) {
+      $result[] = $lemma->getLemma();
+    }
+
+    return $result;
   }
 }

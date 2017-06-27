@@ -27,8 +27,8 @@ class Word {
    */
   public function isEndsWithEs() {
     $ends = ['ches', 'shes', 'oes', 'ses', 'xes', 'zes'];
-    foreach ($ends as $end) {
-      if (substr($this->word, 0 - strlen($end)) == $end) {
+    foreach($ends as $end) {
+      if(substr($this->word, 0 - strlen($end)) == $end) {
         return true;
       }
     }
@@ -41,8 +41,8 @@ class Word {
    */
   public function isEndsWithVerbVowelYs() {
     $ends = ['ays', 'eys', 'iys', 'oys', 'uys'];
-    foreach ($ends as $end) {
-      if (substr($this->word, 0 - strlen($end)) == $end) {
+    foreach($ends as $end) {
+      if(substr($this->word, 0 - strlen($end)) == $end) {
         return true;
       }
     }
@@ -68,8 +68,8 @@ class Word {
     $length = strlen($this->word) - strlen($suffix);
 
     return $length > 2
-    && Helper::isVowel($this->word[$length - 3])
-    && !Helper::isVowel($this->word[$length - 2])
-    && $this->word[$length - 2] === $this->word[$length - 1];
+      && Helper::isVowel($this->word[$length - 3])
+      && !Helper::isVowel($this->word[$length - 2])
+      && $this->word[$length - 2] === $this->word[$length - 1];
   }
 }

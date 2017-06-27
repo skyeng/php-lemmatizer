@@ -32,6 +32,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    */
   public function withPosProvider() {
     return [
+      [['wives', Lemma::POS_NOUN], ['wife']],
       [['desks', Lemma::POS_NOUN], ['desk']],
       [['hired', Lemma::POS_VERB], ['hire']],
       [['worried', Lemma::POS_VERB], ['worry']],
@@ -113,14 +114,17 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withPosProvider
    *
-   * @param array   $wordWithPos
+   * @param array $wordWithPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithPos(array $wordWithPos, array $expectedResult) {
     $lemmas = self::$lemmatizer->getOnlyLemmas(...$wordWithPos);
-    $this->assertEquals(count($expectedResult), count($lemmas));
-    foreach ($expectedResult as $expectedLemma) {
-      $this->assertContains($expectedLemma, $lemmas, '', false, false);
+    $message = 'Expected lemmas: ' . implode(', ', $expectedResult) . "\n";
+    $message .= 'Actual lemmas: ' . implode(', ', $lemmas) . "\n";
+
+    $this->assertEquals(count($expectedResult), count($lemmas), $message);
+    foreach($expectedResult as $expectedLemma) {
+      $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
   }
 
@@ -129,6 +133,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    */
   public function withoutPosProvider() {
     return [
+      [['wives'], ['wife', 'wive']],
       [['plays'], ['play']],
       [['oxen'], ['oxen', 'ox']],
       [['fired'], ['fire', 'fired']],
@@ -206,14 +211,17 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withoutPosProvider
    *
-   * @param array   $wordWithoutPos
+   * @param array $wordWithoutPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithoutPos(array $wordWithoutPos, array $expectedResult) {
     $lemmas = self::$lemmatizer->getOnlyLemmas(...$wordWithoutPos);
-    $this->assertEquals(count($expectedResult), count($lemmas));
-    foreach ($expectedResult as $expectedLemma) {
-      $this->assertContains($expectedLemma, $lemmas, '', false, false);
+    $message = 'Expected lemmas: ' . implode(', ', $expectedResult) . "\n";
+    $message .= 'Actual lemmas: ' . implode(', ', $lemmas) . "\n";
+
+    $this->assertEquals(count($expectedResult), count($lemmas), $message);
+    foreach($expectedResult as $expectedLemma) {
+      $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
   }
 }

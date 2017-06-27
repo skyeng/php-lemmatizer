@@ -9,27 +9,27 @@ use Skyeng\Lemma;
 class Adjective extends PartOfSpeech {
   public function __construct() {
     $this->findIrregularBaseBehavior = new IrregularBaseFinder($this);
-    $this->findRegularBaseBehavior   = new AdjectiveRegularBaseFinder($this);
+    $this->findRegularBaseBehavior = new AdjectiveRegularBaseFinder($this);
   }
 
   /**
    * @inheritdoc
    */
-  public function getPartOfSpeech() {
+  public function getPartOfSpeechAsString() {
     return Lemma::POS_ADJECTIVE;
   }
 
   /**
    * @inheritdoc
    */
-  protected function doGetData() {
+  protected function loadWordsList() {
     return require __DIR__ . "/Config/list.adjective.php";
   }
 
   /**
    * @inheritdoc
    */
-  protected function doGetExceptionsData() {
+  protected function loadWordsExceptions() {
     return require __DIR__ . "/Config/exceptions.adjective.php";
   }
 }

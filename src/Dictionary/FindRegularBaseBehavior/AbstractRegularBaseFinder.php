@@ -26,8 +26,8 @@ abstract class AbstractRegularBaseFinder {
    */
   protected function getMorphologicalSubstitutionBases(Word $word) {
     $bases = [];
-    foreach ($this->getMorphologicalSubstitutions() as list($morpho, $origin)) {
-      if ($word->isEndsWith($morpho)) {
+    foreach($this->getMorphologicalSubstitutions() as list($morpho, $origin)) {
+      if($word->isEndsWith($morpho)) {
         $bases[] = substr($word->asString(), 0, -strlen($morpho)) . $origin;
       }
     }
@@ -42,8 +42,8 @@ abstract class AbstractRegularBaseFinder {
    */
   protected function filterValidBases(array $bases) {
     $result = [];
-    foreach ($bases as $base) {
-      if ($this->isValidBase($base)) {
+    foreach($bases as $base) {
+      if($this->isValidBase($base)) {
         $result[] = $base;
       }
     }
@@ -57,7 +57,7 @@ abstract class AbstractRegularBaseFinder {
    * @return bool
    */
   protected function isValidBase($base) {
-    return strlen($base) > 1 && isset($this->partOfSpeech->getData()[$base]) && $this->partOfSpeech->getData()[$base] === $base;
+    return strlen($base) > 1 && isset($this->partOfSpeech->getWordsList()[$base]) && $this->partOfSpeech->getWordsList()[$base] === $base;
   }
 
   /**
