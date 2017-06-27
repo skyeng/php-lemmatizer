@@ -32,6 +32,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    */
   public function withPosProvider() {
     return [
+      [['wives', Lemma::POS_NOUN], ['wife']],
       [['desks', Lemma::POS_NOUN], ['desk']],
       [['hired', Lemma::POS_VERB], ['hire']],
       [['worried', Lemma::POS_VERB], ['worry']],
@@ -132,6 +133,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    */
   public function withoutPosProvider() {
     return [
+      [['wives'], ['wife', 'wive']],
       [['plays'], ['play']],
       [['oxen'], ['oxen', 'ox']],
       [['fired'], ['fire', 'fired']],
