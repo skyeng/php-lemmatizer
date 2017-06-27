@@ -3,10 +3,10 @@
 namespace Skyeng;
 
 final class Lemma {
-  const POS_NOUN      = 'noun';
-  const POS_VERB      = 'verb';
+  const POS_NOUN = 'noun';
+  const POS_VERB = 'verb';
   const POS_ADJECTIVE = 'adjective';
-  const POS_ADVERB    = 'adverb';
+  const POS_ADVERB = 'adverb';
 
   /**
    * @var string
@@ -19,11 +19,11 @@ final class Lemma {
   private $partOfSpeech;
 
   /**
-   * @param string      $lemma
+   * @param string $lemma
    * @param string|null $partOfSpeech
    */
   public function __construct($lemma, $partOfSpeech = null) {
-    $this->lemma        = $lemma;
+    $this->lemma = $lemma;
     $this->partOfSpeech = $partOfSpeech;
   }
 

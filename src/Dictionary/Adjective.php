@@ -9,7 +9,7 @@ use Skyeng\Lemma;
 class Adjective extends PartOfSpeech {
   public function __construct() {
     $this->findIrregularBaseBehavior = new IrregularBaseFinder($this);
-    $this->findRegularBaseBehavior   = new AdjectiveRegularBaseFinder($this);
+    $this->findRegularBaseBehavior = new AdjectiveRegularBaseFinder($this);
   }
 
   /**

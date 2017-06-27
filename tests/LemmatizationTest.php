@@ -151,14 +151,14 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withPosProvider
    *
-   * @param array   $wordWithPos
+   * @param array $wordWithPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithPos(array $wordWithPos, array $expectedResult) {
     $lemmas = self::$lemmatizer->getLemmas(...$wordWithPos);
     $message = $this->getMessage($expectedResult, $lemmas);
     $this->assertEquals(count($expectedResult), count($lemmas), $message);
-    foreach ($expectedResult as $expectedLemma) {
+    foreach($expectedResult as $expectedLemma) {
       $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
   }
@@ -260,10 +260,12 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
       [['talked'], [new Lemma('talk', Lemma::POS_VERB)]],
       [['saved'], [new Lemma('save', Lemma::POS_VERB), new Lemma('saved', Lemma::POS_ADJECTIVE)]],
       [
-        ['sitting'], [
-        new Lemma('sit', Lemma::POS_VERB), new Lemma('sitting', Lemma::POS_NOUN),
-        new Lemma('sitting', Lemma::POS_ADJECTIVE),
-      ],
+        ['sitting'],
+        [
+          new Lemma('sit', Lemma::POS_VERB),
+          new Lemma('sitting', Lemma::POS_NOUN),
+          new Lemma('sitting', Lemma::POS_ADJECTIVE),
+        ],
       ],
       [['having'], [new Lemma('have', Lemma::POS_VERB)]],
       [['talking'], [new Lemma('talk', Lemma::POS_VERB), new Lemma('talking', Lemma::POS_NOUN)]],
@@ -370,14 +372,14 @@ class LemmatizationTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withoutPosProvider
    *
-   * @param array   $wordWithoutPos
+   * @param array $wordWithoutPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithoutPos(array $wordWithoutPos, array $expectedResult) {
     $lemmas = self::$lemmatizer->getLemmas(...$wordWithoutPos);
     $message = $this->getMessage($expectedResult, $lemmas);
     $this->assertEquals(count($expectedResult), count($lemmas), $message);
-    foreach ($expectedResult as $expectedLemma) {
+    foreach($expectedResult as $expectedLemma) {
       $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
   }

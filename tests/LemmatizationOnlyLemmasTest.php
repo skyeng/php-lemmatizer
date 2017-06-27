@@ -114,7 +114,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withPosProvider
    *
-   * @param array   $wordWithPos
+   * @param array $wordWithPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithPos(array $wordWithPos, array $expectedResult) {
@@ -123,7 +123,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
     $message .= 'Actual lemmas: ' . implode(', ', $lemmas) . "\n";
 
     $this->assertEquals(count($expectedResult), count($lemmas), $message);
-    foreach ($expectedResult as $expectedLemma) {
+    foreach($expectedResult as $expectedLemma) {
       $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
   }
@@ -211,7 +211,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
    *
    * @dataProvider withoutPosProvider
    *
-   * @param array   $wordWithoutPos
+   * @param array $wordWithoutPos
    * @param Lemma[] $expectedResult
    */
   public function testLemmatizationWithoutPos(array $wordWithoutPos, array $expectedResult) {
@@ -220,7 +220,7 @@ class LemmatizationOnlyLemmasTest extends PHPUnit_Framework_TestCase {
     $message .= 'Actual lemmas: ' . implode(', ', $lemmas) . "\n";
 
     $this->assertEquals(count($expectedResult), count($lemmas), $message);
-    foreach ($expectedResult as $expectedLemma) {
+    foreach($expectedResult as $expectedLemma) {
       $this->assertContains($expectedLemma, $lemmas, $message, false, false);
     }
   }

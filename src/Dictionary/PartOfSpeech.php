@@ -32,7 +32,7 @@ abstract class PartOfSpeech {
    * @return array
    */
   public function getData() {
-    if (!$this->data) {
+    if(!$this->data) {
       $this->data = $this->doGetData();
     }
 
@@ -43,7 +43,7 @@ abstract class PartOfSpeech {
    * @return array
    */
   public function getExceptions() {
-    if (!$this->exceptions) {
+    if(!$this->exceptions) {
       $this->exceptions = $this->doGetExceptionsData();
     }
 
@@ -56,7 +56,7 @@ abstract class PartOfSpeech {
    * @return null|Lemma
    */
   public function getIrregularBase(Word $word) {
-    if ($base = $this->findIrregularBaseBehavior->getIrregularBase($word)) {
+    if($base = $this->findIrregularBaseBehavior->getIrregularBase($word)) {
       return new Lemma($base, $this->getPartOfSpeech());
     }
 
@@ -70,8 +70,8 @@ abstract class PartOfSpeech {
    */
   public function getRegularBases(Word $word) {
     $lemmas = [];
-    $bases  = $this->findRegularBaseBehavior->getRegularBases($word);
-    foreach ($bases as $base) {
+    $bases = $this->findRegularBaseBehavior->getRegularBases($word);
+    foreach($bases as $base) {
       $lemmas[] = new Lemma($base, $this->getPartOfSpeech());
     }
 

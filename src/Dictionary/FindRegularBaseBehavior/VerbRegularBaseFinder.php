@@ -11,40 +11,40 @@ class VerbRegularBaseFinder extends AbstractRegularBaseFinder {
   public function getRegularBases(Word $word) {
     $bases = [];
 
-    if ($word->isEndsWithEs()) {
+    if($word->isEndsWithEs()) {
       $bases[] = $verbBase = substr($word->asString(), 0, -2);
-      if (!isset($this->partOfSpeech->getData()[$verbBase]) || $this->partOfSpeech->getData()[$verbBase] !== $verbBase) {
+      if(!isset($this->partOfSpeech->getData()[$verbBase]) || $this->partOfSpeech->getData()[$verbBase] !== $verbBase) {
         $bases[] = substr($word->asString(), 0, -1);
       }
-    } elseif ($word->isEndsWithVerbVowelYs()) {
+    } elseif($word->isEndsWithVerbVowelYs()) {
       $bases[] = substr($word->asString(), 0, -1);
-    } elseif ($word->isEndsWith('ed') && !$word->isEndsWith('ied') && !$word->isEndsWith('cked')) {
+    } elseif($word->isEndsWith('ed') && !$word->isEndsWith('ied') && !$word->isEndsWith('cked')) {
       $bases[] = $pastBase = substr($word->asString(), 0, -1);
-      if (!isset($this->partOfSpeech->getData()[$pastBase]) || $this->partOfSpeech->getData()[$pastBase] !== $pastBase) {
+      if(!isset($this->partOfSpeech->getData()[$pastBase]) || $this->partOfSpeech->getData()[$pastBase] !== $pastBase) {
         $bases[] = substr($word->asString(), 0, -2);
       }
-    } elseif ($word->isEndsWith('ed') && $word->isDoubleConsonant('ed')) {
+    } elseif($word->isEndsWith('ed') && $word->isDoubleConsonant('ed')) {
       $bases[] = substr($word->asString(), 0, -3);
       $bases[] = substr($word->asString(), 0, -2);
       $bases[] = substr($word->asString(), 0, -2) . 'e';
-    } elseif ($word->isEndsWith('ing') && $word->isDoubleConsonant('ing')) {
+    } elseif($word->isEndsWith('ing') && $word->isDoubleConsonant('ing')) {
       $bases[] = substr($word->asString(), 0, -4);
       $bases[] = substr($word->asString(), 0, -3);
       $bases[] = substr($word->asString(), 0, -3) . 'e';
-    } elseif ($word->isEndsWith('ing') && !isset($this->partOfSpeech->getExceptions()[$word->asString()])) {
+    } elseif($word->isEndsWith('ing') && !isset($this->partOfSpeech->getExceptions()[$word->asString()])) {
       $bases[] = $ingBase = substr($word->asString(), 0, -3) . 'e';
-      if (!isset($this->partOfSpeech->getData()[$ingBase]) || $this->partOfSpeech->getData()[$ingBase] !== $ingBase) {
+      if(!isset($this->partOfSpeech->getData()[$ingBase]) || $this->partOfSpeech->getData()[$ingBase] !== $ingBase) {
         $bases[] = substr($word->asString(), 0, -3);
       }
-    } elseif ($word->isEndsWith('able') && $word->isEndsWith('able')) {
+    } elseif($word->isEndsWith('able') && $word->isEndsWith('able')) {
       $bases[] = substr($word->asString(), 0, -5);
-    } elseif ($word->isEndsWith('ability') && $word->isEndsWith('ability')) {
+    } elseif($word->isEndsWith('ability') && $word->isEndsWith('ability')) {
       $bases[] = substr($word->asString(), 0, -8);
-    } elseif ($word->isEndsWith('s')) {
+    } elseif($word->isEndsWith('s')) {
       $bases[] = substr($word->asString(), 0, -1);
     }
 
-    $bases   = array_merge($bases, $this->getMorphologicalSubstitutionBases($word));
+    $bases = array_merge($bases, $this->getMorphologicalSubstitutionBases($word));
     $bases[] = $word->asString();
 
     return $this->filterValidBases($bases);
