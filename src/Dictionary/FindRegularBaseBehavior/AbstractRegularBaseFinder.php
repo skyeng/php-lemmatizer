@@ -57,7 +57,7 @@ abstract class AbstractRegularBaseFinder {
    * @return bool
    */
   protected function isValidBase($base) {
-    return strlen($base) > 1 && isset($this->partOfSpeech->getData()[$base]) && $this->partOfSpeech->getData()[$base] === $base;
+    return strlen($base) > 1 && isset($this->partOfSpeech->getWordsList()[$base]) && $this->partOfSpeech->getWordsList()[$base] === $base;
   }
 
   /**

@@ -15,21 +15,21 @@ class Adverb extends PartOfSpeech {
   /**
    * @inheritdoc
    */
-  public function getPartOfSpeech() {
+  public function getPartOfSpeechAsString() {
     return Lemma::POS_ADVERB;
   }
 
   /**
    * @inheritdoc
    */
-  protected function doGetData() {
+  protected function loadWordsList() {
     return require __DIR__ . "/Config/list.adverb.php";
   }
 
   /**
    * @inheritdoc
    */
-  protected function doGetExceptionsData() {
+  protected function loadWordsExceptions() {
     return require __DIR__ . "/Config/exceptions.adverb.php";
   }
 }

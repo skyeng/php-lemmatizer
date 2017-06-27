@@ -15,21 +15,21 @@ class Noun extends PartOfSpeech {
   /**
    * @inheritdoc
    */
-  public function getPartOfSpeech() {
+  public function getPartOfSpeechAsString() {
     return Lemma::POS_NOUN;
   }
 
   /**
    * @inheritdoc
    */
-  protected function doGetData() {
+  protected function loadWordsList() {
     return require __DIR__ . "/Config/list.noun.php";
   }
 
   /**
    * @inheritdoc
    */
-  protected function doGetExceptionsData() {
+  protected function loadWordsExceptions() {
     return require __DIR__ . "/Config/exceptions.noun.php";
   }
 }

@@ -10,7 +10,7 @@ class IrregularBaseFinder extends AbstractIrregularBaseFinder {
    */
   public function getIrregularBase(Word $word) {
     $wordString = $word->asString();
-    $exceptions = $this->partOfSpeech->getExceptions();
+    $exceptions = $this->partOfSpeech->getWordsExceptions();
     if(isset($exceptions[$wordString]) && $exceptions[$wordString] !== $wordString) {
       return $exceptions[$wordString];
     }

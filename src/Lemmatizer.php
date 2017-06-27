@@ -59,8 +59,8 @@ class Lemmatizer {
       if(!$lemmas) {
         /** @var PartOfSpeech $pos */
         foreach(self::$partsOfSpeech as $pos) {
-          if(isset($pos->getData()[$word])) {
-            $lemmas[] = new Lemma($word, $pos->getPartOfSpeech());
+          if(isset($pos->getWordsList()[$word])) {
+            $lemmas[] = new Lemma($word, $pos->getPartOfSpeechAsString());
           }
         }
       }
