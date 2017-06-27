@@ -56,7 +56,7 @@ abstract class PartOfSpeech {
    * @return null|Lemma
    */
   public function getIrregularBase(Word $word) {
-    if ($base = $this->findIrregularBaseBehavior->getIrregularBase($word, $this->getExceptions())) {
+    if ($base = $this->findIrregularBaseBehavior->getIrregularBase($word)) {
       return new Lemma($base, $this->getPartOfSpeech());
     }
 
