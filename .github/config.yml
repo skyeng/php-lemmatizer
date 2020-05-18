@@ -1,5 +1,5 @@
-PR_TITLE_REGEX: /(Revert.+)|(Merge.+)|(\[)?([A-Z]+)-(\d+)(\])?(.+)/i
-COMMIT_MESSAGE_REGEX: /(Revert.+)|(Merge.+)|(\[)?([A-Z]+)-(\d+)(\])?(.+)/i
+PR_TITLE_REGEX: /(Revert.+)|(Merge.+)|(Hotfix.+)|(Auto.+)|(\[)?([A-Z0-9]+)-(\d+)(\])?(.+)/i
+COMMIT_MESSAGE_REGEX: /(Revert.+)|(Merge.+)|(Hotfix.+)|(Auto.+)|(\[)?([A-Z0-9]+)-(\d+)(\])?(.+)/i
 
 OUTPUT_TITLE_FAIL: Message validation failed!
 OUTPUT_TITLE_SUCCESS: Message validation passed!
