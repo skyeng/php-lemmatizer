@@ -1,4 +1,14 @@
-# php-lemmatizer
+# Лемматизатор
+
+## Краткое описание
+Занимается [лемматизацией](https://ru.wikipedia.org/wiki/%D0%9B%D0%B5%D0%BC%D0%BC%D0%B0%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F) английских слов.
+
+## Ответственные
+
+- Code owner: [Дмитрий Южаков](https://skyeng.slack.com/team/U36JH2JF5)
+- Product owner: [Сергей Сафонов](https://skyeng.slack.com/team/UQ9DX4G5Q)
+- Команда: Platform Core
+
 
 PHP Lemmatizer is a lemmatization library for PHP to retrieve a base form from an inflected form word in English.
 
